@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "87422874571",
+    "project_id": "aplikasi-bacaan-sholat-f94a3",
+    "storage_bucket": "aplikasi-bacaan-sholat-f94a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87422874571:android:b23b014e23c11a83bb3c4e",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "87422874571-j4d29ar56fuhg9dglhj1l4vmoipm218f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdiJoqkZN--g8Uy5FpjMUv6bKVXx6_Wtg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "87422874571-j4d29ar56fuhg9dglhj1l4vmoipm218f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
