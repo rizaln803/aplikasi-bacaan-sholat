@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
  
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -11,9 +10,9 @@ class Register extends StatefulWidget {
  
 class _RegisterState extends State<Register> {
   final _auth = FirebaseAuth.instance;
-  String email="";
-  String password="";
-  String passwordc="";
+  String email = "";
+  String password = "";
+  String passwordc = "";
   bool showSpinner = false;
  
   @override
@@ -22,13 +21,6 @@ class _RegisterState extends State<Register> {
       body: SafeArea(
         child: ListView(
           children: <Widget>[
-            Align(
-              alignment: Alignment.topLeft,
-              child: IconButton(
-                onPressed: () => Navigator.of(context).pop(),
-                icon: Icon(Icons.arrow_back, color: Colors.black,),
-              ),
-            ),
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(10),
@@ -68,7 +60,7 @@ class _RegisterState extends State<Register> {
                 },
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Password',
+                  labelText: 'Kata Sandi',
                 ),
               ),
             ),
@@ -81,7 +73,7 @@ class _RegisterState extends State<Register> {
                 },
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Confirm Password',
+                  labelText: 'Konfirmasi Kata Sandi',
                 ),
               ),
             ),
@@ -89,15 +81,60 @@ class _RegisterState extends State<Register> {
                 height: 50,
                 padding: const EdgeInsets.all(10),
                 child: ElevatedButton(
-                  child: const Text('Register'),
+                  child: const Text('Daftar'),
                   onPressed: () async {
                     setState(() {
                       showSpinner = true;
                     });
                     try{
-                      final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-                      if(newUser != null){
-                        Navigator.pushNamed(context, 'login_screen');
+                      if(email != "" && password != "" && passwordc != ""){
+                        if(password == passwordc){
+                          final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+                          if(newUser != null){
+                            Navigator.of(context).pop();
+                            Navigator.pushNamed(context, 'home_screen');
+                          }
+                        }else{
+                          showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              title: const Text("Error!"),
+                              content: const Text("Konfirmasi kata sandi salah"),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(ctx).pop();
+                                  },
+                                  child: Container(
+                                    color: Colors.black,
+                                    padding: const EdgeInsets.all(14),
+                                    child: const Text("OK"),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      }else{
+                        showDialog(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                            title: const Text("Error!"),
+                            content: const Text("Form tidak boleh kosong"),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(ctx).pop();
+                                },
+                                child: Container(
+                                color: Colors.black,
+                                  padding: const EdgeInsets.all(14),
+                                  child: const Text("OK"),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
                       }
                     }catch(e){
                       print(e);
@@ -107,6 +144,23 @@ class _RegisterState extends State<Register> {
                     });
                   },
                 )
+            ),
+            Row(
+              children: <Widget>[
+                const Text('Sudah punya akun?'),
+                TextButton(
+                  child: const Text(
+                    'Sign in',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.pushNamed(context,
+                      'login_screen');
+                  },
+                )
+              ],
+              mainAxisAlignment: MainAxisAlignment.center,
             ),
           ],
         )),);

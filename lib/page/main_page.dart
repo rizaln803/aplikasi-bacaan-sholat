@@ -4,6 +4,9 @@ import 'package:flutter_application_1/page/bacaan_shalat_page.dart';
 import 'package:flutter_application_1/page/ayat_kursi_page.dart';
 import 'package:flutter_application_1/page/login_page.dart';
 import 'package:flutter_application_1/page/register_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+late User loggedinUser;
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -13,6 +16,23 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final _auth = FirebaseAuth.instance;
+  void initState() {
+      super.initState();
+      getCurrentUser();
+  }
+
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser;
+      if (user != null) {
+        loggedinUser = user;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,8 +172,11 @@ class _MainPageState extends State<MainPage> {
                   child: InkWell(
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
-                    onTap: (){
-                      
+                    onTap: () {
+                      FirebaseAuth.instance.signOut();
+                      Navigator.of(context).pop();
+                      Navigator.pushNamed(context,
+                      'login_screen');
                     },
                     child: Column(
                       children: <Widget>[
@@ -165,7 +188,7 @@ class _MainPageState extends State<MainPage> {
                           height: 10,
                         ),
                         Text(
-                          "Informasi Akun", 
+                          "Sign Out", 
                           style: TextStyle(
                             fontSize: 14, fontWeight: FontWeight.bold),)
                       ],
