@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/page/komen_page.dart';
 import 'package:flutter_application_1/page/niat_shalat_page.dart';
 import 'package:flutter_application_1/page/bacaan_shalat_page.dart';
 import 'package:flutter_application_1/page/ayat_kursi_page.dart';
@@ -143,7 +144,8 @@ class _MainPageState extends State<MainPage> {
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
                     onTap: (){
-                      
+                      Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Komentar()));
                     },
                     child: Column(
                       children: <Widget>[

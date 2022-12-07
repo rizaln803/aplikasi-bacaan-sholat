@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/page/login_page.dart';
 import 'package:flutter_application_1/page/main_page.dart';
 import 'package:flutter_application_1/page/register_page.dart';
+import 'package:flutter_application_1/page/komen_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
